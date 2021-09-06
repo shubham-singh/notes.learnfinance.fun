@@ -3,10 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { SnackbarContextProvider } from "./snackbar/snackbar.context";
+import { AuthContextProvider } from "./auth/auth.context";
+import { NoteContextProvider } from "./note/note.context";
+import ScrollToTop from "./utils/scrollToTop";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AuthContextProvider>
+      <SnackbarContextProvider>
+        <NoteContextProvider>
+          <Router>
+            <ScrollToTop />
+            <App />
+          </Router>
+        </NoteContextProvider>
+      </SnackbarContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
