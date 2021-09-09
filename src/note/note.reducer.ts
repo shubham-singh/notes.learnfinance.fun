@@ -9,11 +9,12 @@ export type NoteAction =
 const NoteReducer = (state: NoteState, action: NoteAction) => {
   switch (action.type) {
     case "SET_NOTE":
-      return { notes: action.payload };
+      return { ...state, notes: action.payload };
     case "ADD_NOTE":
-      return { notes: state.notes.concat(action.payload) };
+      return { ...state, notes: state.notes.concat(action.payload) };
     case "UPDATE_NOTE":
       return {
+        ...state,
         notes: state.notes.map((note) => {
           if (note._id === action.payload._id) {
             return action.payload;
@@ -23,6 +24,7 @@ const NoteReducer = (state: NoteState, action: NoteAction) => {
       };
     case "DELETE_NOTE":
       return {
+        ...state,
         notes: state.notes.filter((note) => note._id !== action.payload),
       };
     default:
