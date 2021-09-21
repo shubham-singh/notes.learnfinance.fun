@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useSnackbar } from "../snackbar/snackbar.context";
 import { deepEqual } from "../utils/function";
-import { createNote, updateNote } from "../utils/server.requests";
+import { createNote, deleteNote, updateNote } from "../utils/server.requests";
 import { NoteModal } from "./displayNotes";
 import { Note, useNote } from "./note.context";
 import { ReactComponent as PinIcon } from "../assets/icons/pin.svg";
 import { ReactComponent as PinFilledIcon } from "../assets/icons/pin-filled.svg";
+import { ReactComponent as DeleteIcon } from "../assets/icons/delete.svg";
 import { format, formatISO, parseISO } from "date-fns";
 
 const EditNote = ({
@@ -44,6 +45,16 @@ const EditNote = ({
     });
   };
 
+  const deleteNoteHandle = () => {
+    if (note?._id) {
+      deleteNote({ noteID: note._id, notesDispatch, snackbarDispatch });
+    }
+    setNoteModal({
+      note: noteform,
+      status: false,
+    });
+  };
+
   const closeModal = () => {
     if (note !== undefined) {
       if (deepEqual(note, noteform)) {
@@ -62,33 +73,38 @@ const EditNote = ({
   const selectColor = (color: string) => {
     setNote({
       ...noteform,
-      color: color
+      color: color,
     });
-  }
+  };
 
   return (
     <div className="flex-row-center h-full-vp w-full-vp edit-note-container">
       <div
         className="flex-c relative edit-note"
-        style={{ backgroundColor: `${noteform.color}`, borderRadius: "1rem" }}
+        style={{ backgroundColor: `${noteform.color}` }}
       >
-        <span onClick={pinUnpinHandle} className="note-pin">
-          {noteform.pinned ? (
-            <PinFilledIcon className="pointer" />
-          ) : (
-            <PinIcon className="pointer" />
-          )}
-        </span>
-        <input
-          type="text"
-          placeholder="Title"
-          name="title"
-          value={noteform.title}
-          onChange={handleInput}
-          className="m-null p-m large note-title"
-          autoFocus={note ? false : true}
-          style={{backgroundColor: `${noteform.color}`}}
+        <div className="flex-row-center justify-b p-m">
+          <input
+            type="text"
+            placeholder="Title"
+            name="title"
+            value={noteform.title}
+            onChange={handleInput}
+            className="m-null  large note-title"
+            autoFocus={note ? false : true}
+            style={{ backgroundColor: `${noteform.color}` }}
           />
+          <div>
+            <span onClick={pinUnpinHandle} className="mr-m">
+              {noteform.pinned ? (
+                <PinFilledIcon className="pointer" />
+              ) : (
+                <PinIcon className="pointer" />
+              )}
+            </span>
+            <span>{note && <DeleteIcon className="pointer" onClick={deleteNoteHandle} />}</span>
+          </div>
+        </div>
         <textarea
           placeholder="Note"
           name="body"
@@ -96,8 +112,8 @@ const EditNote = ({
           onChange={handleInput}
           className="m-null p-m medium note-body"
           autoFocus={note ? true : false}
-          style={{backgroundColor: `${noteform.color}`}}
-          />
+          style={{ backgroundColor: `${noteform.color}` }}
+        />
         <div className="m-null p-m flex-c">
           <div>
             {[
@@ -112,7 +128,9 @@ const EditNote = ({
                 <div
                   key={color}
                   style={{ backgroundColor: `${color}` }}
-                  className={`ml-s mr-s note-color inline pointer ${noteform.color === color ? "selected-color" : ""}`}
+                  className={`ml-s mr-s note-color inline pointer ${
+                    noteform.color === color ? "selected-color" : ""
+                  }`}
                   onClick={() => selectColor(color)}
                 ></div>
               );

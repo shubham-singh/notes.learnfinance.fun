@@ -22,7 +22,7 @@ function App() {
     if (loggedIn) {
       getNotes({notesDispatch, snackbarDispatch})
     }
-  }, [loggedIn])
+  }, [loggedIn, notesDispatch, snackbarDispatch])
 
   return (
     <div className="App">
