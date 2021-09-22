@@ -102,12 +102,17 @@ export const getNotes = async ({notesDispatch, snackbarDispatch} : {notesDispatc
         }
     } catch (error: any) {
         if (error.response.data.error === "jwt expired") {
+            snackbarDispatch({
+                type: "SHOW_SNACKBAR",
+                payload: "Please Login again"
+            })
             deleteAuthToken();
-        }
-        snackbarDispatch({
-            type: "SHOW_SNACKBAR",
-            payload: error.response.data.error
-        })
+            return;
+          }
+          snackbarDispatch({
+              type: "SHOW_SNACKBAR",
+              payload: error.response.data.error
+          })
         
     }
 }
@@ -120,6 +125,10 @@ export const createNote = async ({note, notesDispatch, snackbarDispatch} : {note
         type: "ADD_NOTE",
         payload: response.data.note
       })
+      snackbarDispatch({
+        type: "SHOW_SNACKBAR",
+        payload: "Added note",
+      });
     }
   } catch (error: any) {
     snackbarDispatch({
@@ -137,6 +146,10 @@ export const updateNote = async ({note, notesDispatch, snackbarDispatch} : {note
         type: "UPDATE_NOTE",
         payload: response.data.note
       })
+      snackbarDispatch({
+        type: "SHOW_SNACKBAR",
+        payload: "Note updated",
+      });
     }
   } catch (error: any) {
     snackbarDispatch({
@@ -153,7 +166,11 @@ export const deleteNote = async ({noteID, notesDispatch, snackbarDispatch} : {no
       notesDispatch({
         type: "DELETE_NOTE",
         payload: noteID
-      })
+      });
+      snackbarDispatch({
+        type: "SHOW_SNACKBAR",
+        payload: "Deleted note",
+      });
     }
   } catch (error: any) {
     snackbarDispatch({

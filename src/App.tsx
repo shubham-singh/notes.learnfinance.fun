@@ -10,6 +10,7 @@ import { useNote } from './note/note.context';
 import { useSnackbar } from './snackbar/snackbar.context';
 import { getNotes } from './utils/server.requests';
 import { setupAuthHeaderForServiceCalls } from './utils/function';
+import Snackbar from './snackbar/snackbar';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <div className="App">
+      <Snackbar />
       <Routes>
         <PrivateRoute path="/" element={<DisplayNotes />} />
         <Route path="/login" element={<Login />} />

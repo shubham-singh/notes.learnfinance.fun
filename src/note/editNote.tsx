@@ -78,7 +78,7 @@ const EditNote = ({
   };
 
   return (
-    <div className="flex-row-center h-full-vp w-full-vp edit-note-container">
+    <div className="flex-row-center edit-note-container">
       <div
         className="flex-c relative edit-note"
         style={{ backgroundColor: `${noteform.color}` }}
@@ -140,8 +140,8 @@ const EditNote = ({
             <span>
               Last edited {format(parseISO(noteform.updatedAt), "PPpp")}
             </span>
-            <button className="btn-save pointer" onClick={closeModal}>
-              Close
+            <button className="btn-save p-xs pointer" onClick={closeModal}>
+              Save and Close
             </button>
           </div>
         </div>

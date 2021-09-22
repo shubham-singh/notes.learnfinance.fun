@@ -39,6 +39,8 @@ input:focus, textarea:focus {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .edit-note {
@@ -70,6 +72,7 @@ input:focus, textarea:focus {
 .btn-save {
   border: none;
   background: none;
+  border: 1px solid gray;
 }
 
 .note-color {
