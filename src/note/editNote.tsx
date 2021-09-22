@@ -16,6 +16,16 @@ const EditNote = ({
   note: Note | undefined;
   setNoteModal: React.Dispatch<React.SetStateAction<NoteModal>>;
 }) => {
+  const colors = [
+    '#ffffff',
+    "#fff475",
+    "#d7aefb",
+    "#ccff90",
+    "#aecbfa",
+    "#fdcfe8",
+    "#e6c9a8",
+    "#e8eaed",
+  ];
   const [noteform, setNote] = useState<Note>(
     note
       ? note
@@ -23,7 +33,7 @@ const EditNote = ({
           title: "",
           body: "",
           label: "",
-          color: "#FFFFFF",
+          color: "#ffffff",
           pinned: false,
           updatedAt: formatISO(new Date()),
         }
@@ -63,7 +73,7 @@ const EditNote = ({
       }
     } else {
       if (noteform.title !== "")
-      createNote({ note: noteform, notesDispatch, snackbarDispatch });
+        createNote({ note: noteform, notesDispatch, snackbarDispatch });
     }
     setNoteModal({
       note: noteform,
@@ -103,7 +113,11 @@ const EditNote = ({
                 <PinIcon className="pointer" />
               )}
             </span>
-            <span>{note && <DeleteIcon className="pointer" onClick={deleteNoteHandle} />}</span>
+            <span>
+              {note && (
+                <DeleteIcon className="pointer" onClick={deleteNoteHandle} />
+              )}
+            </span>
           </div>
         </div>
         <textarea
@@ -117,18 +131,11 @@ const EditNote = ({
         />
         <div className="m-null p-m flex-c">
           <div>
-            {[
-              "#D1D5DB",
-              "#FCA5A5",
-              "#FCD34D",
-              "#6EE7B7",
-              "#93C5FD",
-              "#C4B5FD",
-            ].map((color) => {
+            {colors.map((color) => {
               return (
                 <div
                   key={color}
-                  style={{ backgroundColor: `${color}` }}
+                  style={{ backgroundColor: `${color}`}}
                   className={`ml-s mr-s note-color inline pointer ${
                     noteform.color === color ? "selected-color" : ""
                   }`}

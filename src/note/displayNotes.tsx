@@ -40,7 +40,7 @@ const DisplayNotes = () => {
                   key={note._id}
                   onClick={() => clickHandle(note)}
                   className="flex-c note-preview pointer p-m m-m"
-                  style={{backgroundColor: `${note.color}`}}
+                  style={{backgroundColor: `${note.color}`, border: `${note.color !== '#ffffff' ? "" : "1px solid gray"}`}}
                   >
                   <NotePreview note={note} />
                 </div>

@@ -37,7 +37,6 @@ input:focus, textarea:focus {
 .note-preview {
   width: 250px;
   max-height: 50vh;
-  border: 1px solid gray;
   overflow-y: clip;
   border-radius: var(--border-radius-s);
   text-align: left;
