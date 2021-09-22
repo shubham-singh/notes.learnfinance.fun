@@ -62,6 +62,7 @@ const EditNote = ({
         updateNote({ note: noteform, notesDispatch, snackbarDispatch });
       }
     } else {
+      if (noteform.title !== "")
       createNote({ note: noteform, notesDispatch, snackbarDispatch });
     }
     setNoteModal({

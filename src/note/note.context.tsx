@@ -43,7 +43,7 @@ export const NoteContextProvider = ({
   });
 
   return (
-    <NoteContext.Provider value={{ notes: notes.notes, label: notes.labelFn() ,notesDispatch: dispatch }}>
+    <NoteContext.Provider value={{ notes: notes.notes, label: notes.labelFn(), notesDispatch: dispatch }}>
       {children}
     </NoteContext.Provider>
   );

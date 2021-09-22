@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "../auth/auth.context";
 import EditNote from "./editNote";
 import NotePreview from "./note";
 import { Note, useNote } from "./note.context";
@@ -10,6 +11,7 @@ export interface NoteModal {
 
 const DisplayNotes = () => {
   const { notes } = useNote();
+  const { authDispatch } = useAuth();
   const [noteModal, setNoteModal] = useState<NoteModal>({} as NoteModal);
 
   const clickHandle = (note: Note) => {
@@ -18,6 +20,12 @@ const DisplayNotes = () => {
       note: note,
     });
   };
+
+  const logoutHandle = () => {
+    authDispatch({
+      type: "LOGOUT"
+    })
+  }
 
   const pinnedNotes = () => {
     return (
@@ -69,7 +77,13 @@ const DisplayNotes = () => {
 
   return (
     <div>
-      <h1 className="heading m-m">Learn Finance Notes</h1>
+      <div className="flex-row-center wrap-reverse justify-a">
+        <div className="hide-t">
+
+        </div>
+        <h1 className="heading m-m">Learn Finance Notes</h1>
+        <button className="btn-logout block pointer medium" onClick={logoutHandle}>Logout</button>
+      </div>
       {noteModal.status && noteModal.note === undefined ? (
         <EditNote note={undefined} setNoteModal={setNoteModal} />
       ) : (

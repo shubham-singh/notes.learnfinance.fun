@@ -5,6 +5,20 @@
   text-align: center;
 }
 
+.wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+.btn-logout {
+  border:none;
+  background-color: white;
+  border-bottom: 1px solid black;
+}
+
+.btn-logout:hover {
+  border-bottom: 3px solid black;
+}
+
 input:focus, textarea:focus {
   outline: none;
 }
@@ -109,5 +123,11 @@ input:focus, textarea:focus {
 
   .empty-modal {
     display: none;
+  }
+
+  .btn-logout {
+    margin-left: var(--margin-xl);
+    margin-right: var(--margin-xl);
+    margin-top: var(--margin-xl);
   }
 }
