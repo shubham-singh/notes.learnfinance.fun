@@ -5,9 +5,13 @@ import { LoginState } from "../auth/login";
 import { SignupState } from "../auth/signup";
 import { SnackbarAction } from "../snackbar/snackbar.reducer";
 import { NoteAction } from "../note/note.reducer";
-import { LOGIN, NOTE, SIGNUP } from "./api.routes";
+import { BASE, LOGIN, NOTE, SIGNUP } from "./api.routes";
 import { deleteAuthToken } from "./function";
 import { Note } from "../note/note.context";
+
+export const pingServer = async() => {
+  await axios.get(BASE);
+}
 
 export const login = async ({
   loginInfo,

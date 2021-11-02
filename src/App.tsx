@@ -8,7 +8,7 @@ import DisplayNotes from './note/displayNotes';
 import { useAuth } from './auth/auth.context';
 import { useNote } from './note/note.context';
 import { useSnackbar } from './snackbar/snackbar.context';
-import { getNotes } from './utils/server.requests';
+import { getNotes, pingServer } from './utils/server.requests';
 import { setupAuthHeaderForServiceCalls } from './utils/function';
 import Snackbar from './snackbar/snackbar';
 
@@ -17,6 +17,10 @@ function App() {
   const { user: {loggedIn} } = useAuth();
   const { notesDispatch } = useNote();
   const { snackbarDispatch } = useSnackbar();
+
+  useEffect(() => {
+    pingServer();
+  }, [])
 
   useEffect(() => {
     setupAuthHeaderForServiceCalls();
